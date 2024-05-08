@@ -10,7 +10,7 @@ struct Buku
     Buku *next;
 };
 
-Buku *kepala, *bt, *ini, *nodeBaru, *busek;
+Buku *kepala, *bt, *ini, *nodeBaru, *busek, *before;
 
 void ngisiLinkedlist (string judul, string pengarang, int thn) {
     kepala = new Buku();
@@ -28,6 +28,22 @@ void tambahAwal (string judul, string pengarang, int thn) {
     nodeBaru->thn = thn;
     nodeBaru->next = kepala;
     kepala = nodeBaru;
+}
+
+void tambahTengah (string judul, string pengarang, int thn, int posisi) {
+    nodeBaru = new Buku();
+    nodeBaru->judul = judul;
+    nodeBaru->pengarang = pengarang;
+    nodeBaru->thn = thn;
+
+    ini = kepala;
+    int nomor = 1;
+    while (nomor < posisi - 1) {
+        ini = ini -> next;
+        nomor++;
+    }
+    nodeBaru ->next = ini -> next;
+    ini -> next = nodeBaru;
 }
 
 void tambahGuri (string judul, string pengarang, int thn) {
@@ -57,6 +73,34 @@ void hapusAwal () {
     delete busek;
 }
 
+void hapusTengah (int posisi) {
+    if (posisi < 1 || posisi > hitung() ) {
+        cout << "posisi diluar jangkauan" << endl;
+    } else if (posisi == 1 || posisi == hitung () ) {
+        cout << "bukan posisi tengah" << endl;
+    }
+    else
+    {
+        int nomor = 1;
+    ini = kepala;
+    while (nomor <= posisi)
+    {
+        if (nomor == posisi - 1)
+        {
+            before = ini;
+        }
+        if (nomor == posisi)
+        {
+            busek = ini;
+        }
+        ini = ini -> next;
+        nomor++;
+    }
+    before ->next = ini;
+    delete busek;
+    }
+}
+
 void hapusLast () {
     busek = bt;
     ini = kepala;
@@ -69,7 +113,19 @@ void hapusLast () {
     delete busek;  
 }
 
+int hitung(){
+    ini = kepala;
+    int jumlah = 0;
+    while (ini != NULL)
+    {
+    jumlah++;
+    ini = ini->next;
+    }
+    return jumlah;
+}
+
 void cetakLinkedlist(){
+    cout << "jumlah data : " << hitung() << endl;
     ini = kepala;
     while (ini != NULL)
     {
@@ -79,9 +135,9 @@ void cetakLinkedlist(){
         cout << endl;
     ini = ini->next;
     }
-    
-}
 
+}
+    
 int main () {
  ngisiLinkedlist("Ngoding", "bagus", 2025);
  tambahAwal("Mancing", "eko", 2033);
@@ -90,6 +146,9 @@ int main () {
 //  hapusLast();
  ubahAwal("Senja pagi buta", "uden", 1923);
  ubahLast("Fajar sore itu", "hilmi", 2000);
+ tambahTengah("hp baru", "nopal", 2000, 2);
+ tambahTengah("laptop baru", "giska", 2005, 2);
+ hapusTengah(1);
  cetakLinkedlist();
 
  return 0;
