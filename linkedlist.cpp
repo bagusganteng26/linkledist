@@ -21,6 +21,17 @@ void ngisiLinkedlist (string judul, string pengarang, int thn) {
     bt = kepala;    
 }
 
+int hitungSingle(){
+    ini = kepala;
+    int jumlah = 0;
+    while (ini != NULL)
+    {
+    jumlah++;
+    ini = ini->next;
+    }
+    return jumlah;
+}
+
 void tambahAwal (string judul, string pengarang, int thn) {
     nodeBaru = new Buku();
     nodeBaru->judul = judul;
@@ -31,7 +42,13 @@ void tambahAwal (string judul, string pengarang, int thn) {
 }
 
 void tambahTengah (string judul, string pengarang, int thn, int posisi) {
-    nodeBaru = new Buku();
+    if (posisi < 1 || posisi > hitungSingle() ) {
+        cout << "posisi diluar jangkauan" << endl;
+    } else if (posisi == 1 || posisi == hitungSingle() ) {
+        cout << "bukan posisi tengah" << endl;
+    }
+    else {
+        nodeBaru = new Buku();
     nodeBaru->judul = judul;
     nodeBaru->pengarang = pengarang;
     nodeBaru->thn = thn;
@@ -44,6 +61,7 @@ void tambahTengah (string judul, string pengarang, int thn, int posisi) {
     }
     nodeBaru ->next = ini -> next;
     ini -> next = nodeBaru;
+    }
 }
 
 void tambahGuri (string judul, string pengarang, int thn) {
@@ -66,6 +84,25 @@ void ubahLast (string judul, string pengarang, int thn) {
     bt->pengarang = pengarang;
     bt->thn = thn;
 }
+void ubahTengah (string judul, string pengarang, int thn, int posisi) {
+    if (posisi < 1 || posisi > hitungSingle() ) {
+        cout << "posisi diluar jangkauan" << endl;
+    } else if (posisi == 1 || posisi == hitungSingle() ) {
+        cout << "bukan posisi tengah" << endl;
+    }
+    else {
+    ini = kepala;
+    int nomor = 1;
+    while (nomor < posisi)
+    {
+        ini = ini->next;
+        nomor++;
+    }
+    ini->judul = judul;
+    ini->pengarang = pengarang;
+    ini->thn = thn;
+    }
+}
 
 void hapusAwal () {
     busek = kepala;
@@ -74,9 +111,9 @@ void hapusAwal () {
 }
 
 void hapusTengah (int posisi) {
-    if (posisi < 1 || posisi > hitung() ) {
+    if (posisi < 1 || posisi > hitungSingle() ) {
         cout << "posisi diluar jangkauan" << endl;
-    } else if (posisi == 1 || posisi == hitung () ) {
+    } else if (posisi == 1 || posisi == hitungSingle() ) {
         cout << "bukan posisi tengah" << endl;
     }
     else
@@ -113,19 +150,8 @@ void hapusLast () {
     delete busek;  
 }
 
-int hitung(){
-    ini = kepala;
-    int jumlah = 0;
-    while (ini != NULL)
-    {
-    jumlah++;
-    ini = ini->next;
-    }
-    return jumlah;
-}
-
 void cetakLinkedlist(){
-    cout << "jumlah data : " << hitung() << endl;
+    cout << "jumlah data : " << hitungSingle() << endl;
     ini = kepala;
     while (ini != NULL)
     {
@@ -147,7 +173,8 @@ int main () {
  ubahAwal("Senja pagi buta", "uden", 1923);
  ubahLast("Fajar sore itu", "hilmi", 2000);
  tambahTengah("hp baru", "nopal", 2000, 2);
- tambahTengah("laptop baru", "giska", 2005, 2);
+ tambahTengah("laptop baru", "giska", 2005, 3);
+ ubahTengah("Hari itu", "jarwo", 2021, 3);
  hapusTengah(1);
  cetakLinkedlist();
 
