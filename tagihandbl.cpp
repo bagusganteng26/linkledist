@@ -135,20 +135,16 @@ void editTengah(string pelanggan, string tanggal, double jumlah, int posisi) {
         if (posisi == 1)
         {
             cout << "posisi awal bukan posisi tengah" << endl;
-        }else if (posisi < 1 || posisi > hitung())
+        }else if (posisi < 1 || posisi > hitung() - 1)
         {
             cout << "posisi ngawur" << endl;
         }else
         {
-        nodeBaru = new Tagihan();
-        nodeBaru ->pelanggan = pelanggan;
-        nodeBaru ->tanggal= tanggal;
-        nodeBaru ->jumlah= jumlah;
 
         //transfersing
         ini = kepala;
         int nomor = 1;
-        while (nomor < posisi-1)
+        while (nomor < posisi)
         {
             ini = ini ->next;
             nomor++;
@@ -234,8 +230,11 @@ void cetak() {
 int main () {
 buatDobel("Noval", "2 mei 2023", 20.500);
 tambahAwal("Bagus", "4 maret 2020", 30000);
-editAwal("Gamblok", "15 juni 2000", 35000);
-editLast("Denayot", "12 Desember 2010", 15000);
+tambahLast("Jarwo", "27 mei 2001", 23000);
+// tambahTengah("giska", "15 september", 20000, 2);
+// editAwal("Gamblok", "15 juni 2000", 35000);
+// editLast("Denayot", "12 Desember 2010", 15000);
+editTengah("zainun", "1 januari 2012", 50000, 3);
 cetak();
 // tambahLast("Hilmi", "13 januari", 50000);
 // cetak();
